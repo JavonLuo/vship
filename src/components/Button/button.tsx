@@ -54,6 +54,7 @@ export const Button: FC<ButtonProps> = (props) => {
             <button
                 className={classes}
                 disabled={disabled}
+                {...restProps}
             >
                 {children}
             </button>
