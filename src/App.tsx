@@ -20,11 +20,11 @@ function App() {
         hello
      </Button>
      <div style={{width:500}}>
-      <Menu mode={'horizontal'}>
-        <MenuItem disabled>
+      <Menu mode={'vertical'} onSelect={(e)=>{alert(e)}} defaultOpenSubMenus={['3']}>
+        <MenuItem>
           one
        </MenuItem>
-        <MenuItem>
+        <MenuItem disabled>
           two
        </MenuItem>
         <MenuItem>
