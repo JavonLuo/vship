@@ -2,7 +2,8 @@ import React from 'react';
 import './styles/index.scss';
 import Button from './components/Button';
 import Menu from './components/Menu/menu';
-import MenuItem from './components/Menu/menuItem'
+import MenuItem from './components/Menu/menuItem';
+import SubMenu from './components/Menu/subMenu'
 function App() {
   return (
     <div className="App">
@@ -19,16 +20,27 @@ function App() {
         hello
      </Button>
      <div style={{width:500}}>
-      <Menu mode={'vertical'}>
-        <MenuItem index={0} disabled>
+      <Menu mode={'horizontal'}>
+        <MenuItem disabled>
           one
        </MenuItem>
-        <MenuItem index={1}>
+        <MenuItem>
           two
        </MenuItem>
-        <MenuItem index={2}>
+        <MenuItem>
           three
        </MenuItem>
+       <SubMenu title='download'>
+       <MenuItem disabled>
+       download1
+       </MenuItem>
+        <MenuItem>
+        download2
+       </MenuItem>
+        <MenuItem>
+        download3
+       </MenuItem>
+       </SubMenu>
       </Menu>
      </div>
     </div>
