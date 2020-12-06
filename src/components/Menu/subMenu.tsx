@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react'
 import classNames from 'classnames'
 import { MenuContext } from './menu'
 import { MenuItemProps } from './menuItem'
-import { clearInterval } from 'timers'
 
 export interface SubMenuProps {
     index?: string;
@@ -40,21 +39,15 @@ const SubMenu: React.FC<SubMenuProps> = ({index, title, className, children}) =>
     }
     let timer: any
     const handleMouse = (e: React.MouseEvent, toggle: boolean) => {
-        e.preventDefault()
         clearTimeout(timer)
-        setTimeout(() => {
+        e.preventDefault()
+        timer = setTimeout(() => {
             setMenuOpen(toggle)
-        }, 200)
-        // if(context.onSelect && (typeof index === 'string')){
-        //     context.onSelect(index)
-        // }
+        }, 250)
     }
     const handleClick = (e: React.MouseEvent) => {
         e.preventDefault()
         setMenuOpen(!menuOpen)
-        // if(context.onSelect && (typeof index === 'string')){
-        //     context.onSelect(index)
-        // }
     }
     const clickEvents = context.mode === 'vertical' ? { onClick: handleClick } : {}
     const hoverEvents = context.mode !== 'vertical' ? { 
