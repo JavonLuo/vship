@@ -3,7 +3,8 @@ import './styles/index.scss';
 import Button from './components/Button';
 import Menu from './components/Menu/menu';
 import MenuItem from './components/Menu/menuItem';
-import SubMenu from './components/Menu/subMenu'
+import SubMenu from './components/Menu/subMenu';
+import Icon from './components/Icon/icon'
 function App() {
   return (
     <div className="App">
@@ -19,8 +20,9 @@ function App() {
       <Button btnType='link' disabled>
         hello
      </Button>
+     <Icon icon='coffee' size='10x' theme='warning' />
      <div style={{width:500}}>
-      <Menu mode={'horizontal'} onSelect={(e)=>{alert(e)}} defaultOpenSubMenus={['3']}>
+      <Menu mode={'vertical'} onSelect={(e)=>{alert(e)}} defaultOpenSubMenus={['3']}>
         <MenuItem>
           one
        </MenuItem>
