@@ -21,7 +21,7 @@ const disabledInput = () => (
 const iconInput = () => (
   <Input
   style={{width: 300, marginLeft: 40}}
-  placeholder='placeholder'
+  placeholder='icon input'
   icon='search'
   />
 )
