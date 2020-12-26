@@ -67,4 +67,8 @@ export const Input: FC<InputProps> = (props) => {
   )
 }
 
+Input.defaultProps = {
+  size: 'middle'
+}
+
 export default Input;
