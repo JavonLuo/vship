@@ -10,12 +10,11 @@
   position: relative;
   padding: 8px 15px 8px 37px;
   border-radius: 4px;
+  // transition: all .2s;
+  word-wrap: break-word;
 }
-.vship-alert .vship-alert-closable {
+.vship-alert.vship-alert-closable {
   padding-right: 30px;
-}
-.vship-alert .vship-alert-no-icon {
-  padding: 8px 15px;
 }
 .vship-alert-close-icon {
   position: absolute;
@@ -29,6 +28,9 @@
   border: none;
   outline: none;
   cursor: pointer;
+}
+.vship-alert-no-icon {
+  padding: 8px 15px;
 }
 .vhsip-alert-close-text {
   color: rgba(0,0,0,.45);
@@ -57,12 +59,14 @@
   left: 16px;
 }
 .vship-alert-with-description {
-  position: relative;
   padding: 15px 15px 15px 64px;
-  color: rgba(0,0,0,.65);
-  line-height: 1.5;
-  border-radius: 4px;
+  .vship-alert-description {
+    display: block;
+  }
 }
+  .vship-alert-with-description.vship-alert-no-icon {
+    padding: 15px;
+  }
 .vship-alert-message {
   color: rgba(0,0,0,.85);
 }
