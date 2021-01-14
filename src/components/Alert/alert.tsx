@@ -1,4 +1,4 @@
-import React, { ReactNode, FC, useState, useEffect } from 'react'
+import React, { ReactNode, useState, useEffect } from 'react'
 import classNames from 'classnames'
 import Icon, { IconProps } from '../Icon/icon'
 import Transition from '../Transition/transition'
@@ -16,10 +16,11 @@ export interface AlertProps {
   onClose?: (e: React.MouseEvent) => void
 }
 
-export const Alert: FC<AlertProps> = (props) => {
+export const Alert: React.FC<AlertProps> = (props) => {
   const [showAlert, setShowAlert] = useState(true)
   useEffect(() => {
     return componentWillUnmount
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showAlert])
   const componentWillUnmount = () => {
     const { afterClose } = props
