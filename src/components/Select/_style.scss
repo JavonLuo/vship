@@ -34,7 +34,9 @@
   border-radius: $input-border-radius;
   box-shadow: $input-box-shadow;
   transition: $input-transition;
-
+  &:hover {
+    border: $input-border-width solid $primary;
+  }
   &:focus {
     color: $input-focus-color;
     background-color: $input-focus-bg;
