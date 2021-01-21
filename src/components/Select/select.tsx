@@ -1,6 +1,8 @@
-import React, { createContext, KeyboardEvent, useState, useRef } from 'react'
+/* eslint-disable array-callback-return */
+import React, { createContext, KeyboardEvent, useState, useRef, ChangeEvent } from 'react'
 import classNames from 'classnames'
 import Icon from '../Icon/icon'
+import Input from '../Input/input'
 import Empty from '../Empty/empty'
 import Transition from '../Transition/transition'
 import { OptionProps } from './option'
@@ -9,9 +11,14 @@ import useClickOutside from '../../Hooks/useClickOutside'
 type SelectSize = 'large' | 'middle' | 'small'
 export interface SelectProps {
   size?: SelectSize
+  search?: boolean
   onSelect?: (value: string) => void
+  onChange?: (value: string | Number) => void
   defaultValue?: string | number
   placeholder?: string
+  dropdownMatchSelectWidth?: boolean
+  optionFilterProp?: string
+  dropdownStyle?: Object
 }
 
 interface ISelectContext {
@@ -23,8 +30,13 @@ export const Select: React.FC<SelectProps> = (props) => {
   const {
     size,
     onSelect,
+    onChange,
     defaultValue,
     placeholder,
+    search,
+    dropdownStyle,
+    optionFilterProp,
+    dropdownMatchSelectWidth,
     ...restProps
   } = props
   const { children } = props
@@ -34,6 +46,21 @@ export const Select: React.FC<SelectProps> = (props) => {
   const [selectedValue, setSelectedValue] = useState(defaultValue)
   const [focus, setFocus] = useState<boolean>(false)
   useClickOutside(componentRef, () => { setFocus(false); setShowDropdown(false) })
+  const renderChildren = () => {
+    const _children = React.Children.map(children, (child, index) => {
+      const childElement = child as React.FunctionComponentElement<OptionProps>
+      const { displayName } = childElement.type
+      if (displayName === 'Option') {
+        return React.cloneElement(childElement, {
+          index: index
+        })
+      } else {
+        console.error('warning: Select has a child which is not a Option component')
+      }
+    })
+    return _children
+  }
+  const [dropdownList, setDropdownList] = useState(renderChildren() || [])
   const handleKeyDown = (e: KeyboardEvent<HTMLUListElement>) => {
     switch (e.keyCode) {
       case 13:
@@ -58,14 +85,14 @@ export const Select: React.FC<SelectProps> = (props) => {
     const children = renderChildren()
     let activeIndex = highlightIndex
     if (action === 'minus') {
-      activeIndex = highlightIndex -1
-    } else if(action === 'plus') {
+      activeIndex = highlightIndex - 1
+    } else if (action === 'plus') {
       activeIndex = highlightIndex + 1
     }
     if (children) {
       if (activeIndex < 0) {
         activeIndex = children.length - 1
-      } else if (activeIndex > children.length -1) {
+      } else if (activeIndex > children.length - 1) {
         activeIndex = 0
       }
       while (children[activeIndex].props.disabled) {
@@ -75,22 +102,8 @@ export const Select: React.FC<SelectProps> = (props) => {
           activeIndex = activeIndex + 1
         }
       }
-    } 
+    }
     setHighlightIndex(activeIndex)
-  }
-  const renderChildren = () => {
-    const _children = React.Children.map(children, (child, index) => {
-      const childElement = child as React.FunctionComponentElement<OptionProps>
-      const { displayName } = childElement.type
-      if (displayName === 'Option') {
-        return React.cloneElement(childElement, {
-          index: index
-        })
-      } else {
-        console.error('warning: Select has a child which is not a Option component')
-      }
-    })
-    return _children
   }
   const handleClick = (value: string, index: number) => {
     // setHighlightIndex(index)
@@ -103,6 +116,27 @@ export const Select: React.FC<SelectProps> = (props) => {
   const handleFocus = () => {
     setFocus(true)
     setShowDropdown(true)
+  }
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSelectedValue(e.target.value)
+    if (onChange) {
+      onChange(e.target.value)
+    }
+    let _children: any[] = []
+    const children = renderChildren()
+    if (children) {
+      if (optionFilterProp === 'value') {
+        _children = children.filter(child => child.props.value.toString().toLocaleUpperCase().includes(e.target.value.toString().toLocaleUpperCase()))
+      } else if (optionFilterProp === 'children') {
+        const childrenIsText = children.filter(child => typeof child.props.children === 'number' || typeof child.props.children === 'string')
+        _children = childrenIsText.filter((child) => {
+          if (typeof child.props.children === 'number' || typeof child.props.children === 'string') {
+            return child.props.children.toString().toLocaleUpperCase().includes(e.target.value.toString().toLocaleUpperCase())
+          }
+        })
+      }
+    }
+    setDropdownList(_children)
   }
   const passedContext: ISelectContext = {
     index: highlightIndex,
@@ -118,22 +152,35 @@ export const Select: React.FC<SelectProps> = (props) => {
   })
   return (
     <div className={cnames} {...restProps} ref={componentRef} onClick={handleFocus}>
-      <div className={klass}>
+      {search ? <div className={klass}>
         <div>{selectedValue ? selectedValue : placeholder}</div>
-        <span className='vship-select-arrow'>
-          <Icon icon='angle-down' className={showDropdown ? 'icon-down icon-down-focus' : 'icon-down'} />
-        </span>
-      </div>
+      </div> :
+        <div className='vship-select-seatch'>
+          <Input
+            style={{ marginBottom: 0 }}
+            size={size}
+            placeholder={placeholder}
+            value={selectedValue}
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+      }
+      <span className='vship-select-arrow'>
+        <Icon icon='angle-down' className={showDropdown ? 'icon-down icon-down-focus' : 'icon-down'} />
+      </span>
       <Transition
         in={showDropdown}
         animation='zoom-in-top'
         timeout={300}
-        onExited={() => {}}
+        onExited={() => { }}
       >
-        <ul className='vship-option-list'>
+        <ul
+          className={dropdownMatchSelectWidth ? 'vship-option-list dropdownMatchSelectWidth' : 'vship-option-list'}
+          style={dropdownStyle}
+        >
           <SelectContext.Provider value={passedContext}>
-            {renderChildren() ?
-              renderChildren() :
+            {dropdownList && dropdownList.length ?
+              dropdownList :
               <div className='vship-option-empty'>
                 <Empty />
               </div>
@@ -145,7 +192,9 @@ export const Select: React.FC<SelectProps> = (props) => {
   )
 }
 Select.defaultProps = {
-  size: 'middle'
+  size: 'middle',
+  optionFilterProp: 'value',
+  dropdownMatchSelectWidth: true
 }
 
 export default Select;

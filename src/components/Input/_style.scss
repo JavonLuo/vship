@@ -48,7 +48,7 @@
     // Avoid using mixin so we can pass custom focus shadow properly
   }
   &::placeholder {
-    color: $input-placeholder-color;
+    color: #bfbfbf;
     // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
     opacity: 1;
   }
