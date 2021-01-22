@@ -12,7 +12,7 @@ export interface AlertProps {
   icon?: ReactNode,
   message?: string | ReactNode,
   showIcon?: boolean,
-  type: alertType,
+  type?: alertType,
   onClose?: (e: React.MouseEvent) => void
 }
 
@@ -70,6 +70,7 @@ export const Alert: React.FC<AlertProps> = (props) => {
     'vship-alert-closable': closable
   })
   const iconEle = icon as React.FunctionComponentElement<IconProps>;
+  const _type = type as string
   return (
     <Transition
       in={showAlert}
@@ -77,7 +78,7 @@ export const Alert: React.FC<AlertProps> = (props) => {
       animation="zoom-in-top"
     >
       {<div className={classes} {...restProps}>
-        {showIcon && !icon && <Icon icon={getIconAndTheme(type).icon} size={description ? '2x' : '1x'} theme={getIconAndTheme(type).theme} className='vship-alert-icon' />}
+        {showIcon && !icon && <Icon icon={getIconAndTheme(_type).icon} size={description ? '2x' : '1x'} theme={getIconAndTheme(_type).theme} className='vship-alert-icon' />}
         {showIcon && icon && React.cloneElement(iconEle, { className: 'vship-alert-icon' })}
         <span className='vship-alert-message'>{message && message}</span>
         <span className='vship-alert-description'>{description && description}</span>
