@@ -12,6 +12,7 @@ type SelectSize = 'large' | 'middle' | 'small'
 export interface SelectProps {
   size?: SelectSize
   search?: boolean
+  disabled?: boolean
   onSelect?: (value: string) => void
   onChange?: (value: string | Number) => void
   defaultValue?: string | number
@@ -34,6 +35,7 @@ export const Select: React.FC<SelectProps> = (props) => {
     defaultValue,
     placeholder,
     search,
+    disabled,
     dropdownStyle,
     optionFilterProp,
     dropdownMatchSelectWidth,
@@ -114,6 +116,7 @@ export const Select: React.FC<SelectProps> = (props) => {
     }
   }
   const handleFocus = () => {
+    if (disabled) return
     setFocus(true)
     setShowDropdown(true)
   }
@@ -143,7 +146,8 @@ export const Select: React.FC<SelectProps> = (props) => {
     onSelect: handleClick
   }
   const cnames = classNames('vship-select-wrapper', {
-    [`select-size-${size}`]: size
+    [`select-size-${size}`]: size,
+    'vship-select-disabled': disabled
   })
   const klass = classNames('vship-select-inner', {
     'vship-select-inner-focus': focus,
@@ -152,13 +156,14 @@ export const Select: React.FC<SelectProps> = (props) => {
   })
   return (
     <div className={cnames} {...restProps} ref={componentRef} onClick={handleFocus}>
-      {search ? <div className={klass}>
+      {!search ? <div className={klass}>
         <div>{selectedValue ? selectedValue : placeholder}</div>
       </div> :
-        <div className='vship-select-seatch'>
+        <div className='vship-select-search'>
           <Input
             style={{ marginBottom: 0 }}
             size={size}
+            disabled={disabled}
             placeholder={placeholder}
             value={selectedValue}
             onChange={(e) => handleChange(e)}
