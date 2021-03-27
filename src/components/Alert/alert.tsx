@@ -78,8 +78,10 @@ export const Alert: React.FC<AlertProps> = (props) => {
       animation="zoom-in-top"
     >
       {<div className={classes} {...restProps}>
-        {showIcon && !icon && <Icon icon={getIconAndTheme(_type).icon} size={description ? '2x' : '1x'} theme={getIconAndTheme(_type).theme} className='vship-alert-icon' />}
-        {showIcon && icon && React.cloneElement(iconEle, { className: 'vship-alert-icon' })}
+        <span className='vship-alert-icon'>
+        {showIcon && !icon && <Icon icon={getIconAndTheme(_type).icon} size={description ? '2x' : '1x'} theme={getIconAndTheme(_type).theme} />}
+        {showIcon && icon && iconEle}
+        </span>
         <span className='vship-alert-message'>{message && message}</span>
         <span className='vship-alert-description'>{description && description}</span>
         {closable && <button
