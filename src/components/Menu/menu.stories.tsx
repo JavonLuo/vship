@@ -5,27 +5,69 @@ import MenuItem from './menuItem'
 import Menu from './index'
 import SubMenu from './subMenu'
 
-const horizontalMenu = () => (
-  <Menu onSelect={action('clicked')} defaultOpenSubMenus={['3']} style={{ marginLeft: 40 }}>
-    <MenuItem disabled>
-      disabled
-    </MenuItem>
-    <MenuItem>
-      normal
-    </MenuItem>
-    <SubMenu title='subMenu'>
+const basicMenu = () => (
+  <div style={{padding: '0px 40px'}}>
+    <Menu>
       <MenuItem disabled>
-        download1
-       </MenuItem>
+        disabled
+      </MenuItem>
       <MenuItem>
-        download2
-       </MenuItem>
+        normal
+      </MenuItem>
+    </Menu>
+    <Menu mode='vertical'>
+      <MenuItem disabled>
+        disabled
+      </MenuItem>
       <MenuItem>
-        download3
-       </MenuItem>
-    </SubMenu>
-  </Menu>
+        normal
+      </MenuItem>
+    </Menu>
+  </div>
+)
+const subMenu = () => (
+  <div style={{padding: '0px 40px'}}>
+    <Menu onSelect={action('clicked')} defaultOpenSubMenus={['3']}>
+      <MenuItem disabled>
+        disabled
+      </MenuItem>
+      <MenuItem>
+        normal
+      </MenuItem>
+      <SubMenu title='subMenu'>
+        <MenuItem disabled>
+          download1
+        </MenuItem>
+        <MenuItem>
+          download2
+        </MenuItem>
+        <MenuItem>
+          download3
+        </MenuItem>
+      </SubMenu>
+    </Menu>
+    <Menu onSelect={action('clicked')} mode='vertical'>
+      <MenuItem disabled>
+        disabled
+      </MenuItem>
+      <SubMenu title='subMenu'>
+        <MenuItem disabled>
+          download1
+        </MenuItem>
+        <MenuItem>
+          download2
+        </MenuItem>
+        <MenuItem>
+          download3
+        </MenuItem>
+      </SubMenu>
+      <MenuItem>
+        normal
+      </MenuItem>
+    </Menu>
+  </div>
 )
 
 storiesOf('Menu', module)
-  .add('default menu', horizontalMenu)
+  .add('basic menu', basicMenu)
+  .add('sub menu', subMenu)

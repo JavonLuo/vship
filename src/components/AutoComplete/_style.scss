@@ -6,6 +6,8 @@
   padding-left: 0;
   white-space: nowrap;
   position: absolute;
+  max-height: 250px;
+  overflow-y: auto;
   background: $white;
   z-index: 100;
   top: calc(100% + 5px);

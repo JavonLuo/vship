@@ -18,6 +18,7 @@ const centerDecorator = (storyFn: any) => (
   <h3 style={{marginLeft: 40}}>组件演示</h3>
   {storyFn()}
   </div>)
+// @ts-ignore
 addDecorator(withInfo)
 addParameters({
   info: {

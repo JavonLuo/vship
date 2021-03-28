@@ -11,10 +11,29 @@ interface DataSourceObject {
 }
 export type DataSourceType<T = {}> = T & DataSourceObject
 export interface AutoCompleteProps extends Omit<InputProps, 'onSelect'> {
+  /**
+    * fetch 函数 支持返回一个promise
+  */
   fetchSuggestions: (str: string) => DataSourceType[] | Promise<DataSourceType[]>
+  /**
+    * 选中的callback (item: {value： string}) => void
+  */
   onSelect?: (item: DataSourceType) => void
+  /**
+    * 自定义渲染option (item: {value： string}) => ReactElement
+  */
   renderOption?: (item: DataSourceType) => ReactElement
 }
+/**
+* ### AutoComplete 自动完成
+*
+* 输入框自动完成功能。 
+* ### 引用方法
+* 
+* ~~~js
+* import { AutoComplete } from 'vship';
+* ~~~
+*/
 export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
   const {
     fetchSuggestions,
@@ -99,7 +118,7 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
     return renderOption ? renderOption(item) : item.value
   }
   const generateDropdown = () => {
-    if (!loading || suggestions.length) return null
+    if (!loading && !suggestions.length) return null
     return (
       <Transition
         in={showDropdown || loading}
@@ -110,9 +129,10 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
         <ul className='vship-suggestion-list'>
           {loading && 
             <div className='suggestions-loading-icon'>
-              <Icon icon='spinner' spin />
+              <Icon icon='spinner' spin theme='primary' />
             </div>
           }
+          {/* @ts-ignore */}
           {suggestions.map((item, index) => {
             const cnames = classNames('suggestion-item',{
               'is-active': index === highlightIndex

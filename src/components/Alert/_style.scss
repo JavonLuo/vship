@@ -8,8 +8,9 @@
   line-height: 1.5;
   list-style: none;
   position: relative;
-  padding: 8px 15px 8px 37px;
+  padding: 8px 15px;
   border-radius: 4px;
+  display: flex;
   // transition: all .2s;
   word-wrap: break-word;
 }
@@ -54,19 +55,32 @@
   border: 1px solid #ffa39e;
 }
 .vship-alert-icon {
-  position: absolute;
-  top: 8px;
-  left: 16px;
+  margin-right: 8px;
 }
 .vship-alert-with-description {
-  padding: 15px 15px 15px 64px;
+  padding: 15px 15px 15px 24px;
   .vship-alert-description {
     display: block;
   }
 }
-  .vship-alert-with-description.vship-alert-no-icon {
-    padding: 15px;
-  }
+.vship-alert-with-description.vship-alert-no-icon {
+  padding: 15px;
+}
+.vship-alert-with-description .vship-alert-icon {
+  margin-right: 15px;
+  font-size: 24px;
+  line-height: 0;
+}
+.vship-alert-with-description .vship-alert-message {
+  display: block;
+  margin-bottom: 4px;
+  color: rgba(0,0,0,.85);
+  font-size: 16px;
+}
+.vship-alert-no-icon .vship-alert-icon{
+  margin-right: unset;
+  font-size: unset;
+}
 .vship-alert-message {
   color: rgba(0,0,0,.85);
 }
@@ -79,4 +93,7 @@
   margin-bottom: 0;
   border: 0;
   border-radius: 0;
+}
+.vship-alert-content {
+  flex: 1;
 }

@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import React, { createContext, KeyboardEvent, useState, useRef, ChangeEvent } from 'react'
+import React, { createContext, useState, useRef, ChangeEvent } from 'react'
 import classNames from 'classnames'
 import Icon from '../Icon/icon'
 import Input from '../Input/input'
@@ -43,7 +43,6 @@ export const Select: React.FC<SelectProps> = (props) => {
   } = props
   const { children } = props
   const componentRef = useRef<HTMLDivElement>(null)
-  const [highlightIndex, setHighlightIndex] = useState<number>(-1)
   const [showDropdown, setShowDropdown] = useState<boolean>(false)
   const [selectedValue, setSelectedValue] = useState(defaultValue)
   const [focus, setFocus] = useState<boolean>(false)
@@ -63,50 +62,6 @@ export const Select: React.FC<SelectProps> = (props) => {
     return _children
   }
   const [dropdownList, setDropdownList] = useState(renderChildren() || [])
-  const handleKeyDown = (e: KeyboardEvent<HTMLUListElement>) => {
-    switch (e.keyCode) {
-      case 13:
-        // if (suggestions[highlightIndex]) {
-        //   handleSelect(suggestions[highlightIndex])
-        // }
-        break;
-      case 38:
-        highlight('minus')
-        break;
-      case 40:
-        highlight('plus')
-        break
-      case 27:
-        // setShowDropdown(false)
-        break;
-      default:
-        break;
-    }
-  }
-  const highlight = (action: string) => {
-    const children = renderChildren()
-    let activeIndex = highlightIndex
-    if (action === 'minus') {
-      activeIndex = highlightIndex - 1
-    } else if (action === 'plus') {
-      activeIndex = highlightIndex + 1
-    }
-    if (children) {
-      if (activeIndex < 0) {
-        activeIndex = children.length - 1
-      } else if (activeIndex > children.length - 1) {
-        activeIndex = 0
-      }
-      while (children[activeIndex].props.disabled) {
-        if (highlightIndex > activeIndex) {
-          activeIndex = activeIndex - 1
-        } else {
-          activeIndex = activeIndex + 1
-        }
-      }
-    }
-    setHighlightIndex(activeIndex)
-  }
   const handleClick = (value: string, index: number) => {
     // setHighlightIndex(index)
     setShowDropdown(false)
@@ -142,7 +97,7 @@ export const Select: React.FC<SelectProps> = (props) => {
     setDropdownList(_children)
   }
   const passedContext: ISelectContext = {
-    index: highlightIndex,
+    index: -1,
     onSelect: handleClick
   }
   const cnames = classNames('vship-select-wrapper', {

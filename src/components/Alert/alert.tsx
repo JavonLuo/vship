@@ -4,23 +4,62 @@ import Icon, { IconProps } from '../Icon/icon'
 import Transition from '../Transition/transition'
 type alertType = 'success' | 'info' | 'warning' | 'error'
 export interface AlertProps {
+  /**
+    * close after callback
+  */
   afterClose?: () => void,
+  /**
+    * 是否顶部显示
+  */
   banner?: boolean,
+  /**
+    * 是否显示关闭按钮
+  */
   closable?: boolean,
+  /**
+    * 关闭的显示文本
+  */
   closeText?: string | ReactNode,
+  /**
+    * 详情文本
+  */
   description?: string | ReactNode,
+  /**
+    * 自定义图标 react node
+  */
   icon?: ReactNode,
+  /**
+    * alert text
+  */
   message?: string | ReactNode,
+  /**
+    * 是否显示图标
+  */
   showIcon?: boolean,
+  /**
+    * alert 类型 success、warning、error、info四种类型
+  */
   type?: alertType,
+  /**
+    * close callback
+  */
   onClose?: (e: React.MouseEvent) => void
 }
-
+/**
+* ### Alert 警告提示
+*
+* 警告提示，展现需要关注的信息。 
+* ### 引用方法
+* 
+* ~~~js
+* import { Alert } from 'vship';
+* ~~~
+*/
 export const Alert: React.FC<AlertProps> = (props) => {
   const [showAlert, setShowAlert] = useState(true)
   useEffect(() => {
     return componentWillUnmount
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showAlert])
   const componentWillUnmount = () => {
     const { afterClose } = props
@@ -79,14 +118,16 @@ export const Alert: React.FC<AlertProps> = (props) => {
     >
       {<div className={classes} {...restProps}>
         <span className='vship-alert-icon'>
-        {showIcon && !icon && <Icon icon={getIconAndTheme(_type).icon} size={description ? '2x' : '1x'} theme={getIconAndTheme(_type).theme} />}
-        {showIcon && icon && iconEle}
+          {showIcon && !icon && <Icon icon={getIconAndTheme(_type).icon} theme={getIconAndTheme(_type).theme} />}
+          {showIcon && icon && iconEle}
         </span>
-        <span className='vship-alert-message'>{message && message}</span>
-        <span className='vship-alert-description'>{description && description}</span>
+        <div className='.vship-alert-content'>
+          <span className='vship-alert-message'>{message && message}</span>
+          <span className='vship-alert-description'>{description && description}</span>
+        </div>
         {closable && <button
           className='vship-alert-close-icon'
-          style={{ color: '#aaa', fontSize: 16 }}
+          style={{ color: '#aaa', fontSize: 12 }}
           onClick={(e) => { closeAlert(e) }}
         >
           {closeText ? closeText : 'X'}
