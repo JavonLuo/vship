@@ -1,4 +1,4 @@
-import React, { useContext, MouseEvent, ReactNode } from 'react'
+import React, { useContext, MouseEvent, ReactNode, HTMLAttributes } from 'react'
 import classNames from 'classnames'
 import { SelectContext } from './select'
 export interface OptionProps {
@@ -10,7 +10,7 @@ export interface OptionProps {
   style?: React.CSSProperties;
 }
 
-const Option: React.FC<OptionProps> = (props) => {
+const Option: React.FC<OptionProps & HTMLAttributes<HTMLElement>> = (props) => {
   const { value, disabled, className, style, children, index, ...restProps } = props
   const context = useContext(SelectContext)
   const cnames = classNames('vship-select-option-item', className, {

@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import React, { createContext, useState, useRef, ChangeEvent } from 'react'
+import React, { createContext, useState, useRef, ChangeEvent, HTMLAttributes } from 'react'
 import classNames from 'classnames'
 import Icon from '../Icon/icon'
 import Input from '../Input/input'
@@ -9,16 +9,46 @@ import { OptionProps } from './option'
 import useClickOutside from '../../Hooks/useClickOutside'
 
 type SelectSize = 'large' | 'middle' | 'small'
-export interface SelectProps {
+export interface SelectProps extends Omit<HTMLAttributes<HTMLElement>, 'onChange' | 'onSelect'> {
+  /**
+    * 尺寸
+  */
   size?: SelectSize
+  /**
+    * 是否支持搜索
+  */
   search?: boolean
+  /**
+    * 是否禁用
+  */
   disabled?: boolean
+  /**
+    * 被选中时调用，参数为选中项的 value (或 key) 值
+  */
   onSelect?: (value: string) => void
+  /**
+    * 选中 option，或 input 的 value 变化时，调用此函数
+  */
   onChange?: (value: string | Number) => void
+  /**
+    * 指定默认选中的条目
+  */
   defaultValue?: string | number
+  /**
+    * 选择框默认文本
+  */
   placeholder?: string
+  /**
+    * 下拉菜单和选择器同宽。
+  */
   dropdownMatchSelectWidth?: boolean
+  /**
+    * 搜索时过滤对应的 option 属性，如设置为 children 表示对内嵌内容进行搜索。
+  */
   optionFilterProp?: string
+  /**
+    * 下拉菜单的 style 属性
+  */
   dropdownStyle?: Object
 }
 
@@ -27,6 +57,16 @@ interface ISelectContext {
   onSelect?: (value: string, index: number) => void;
 }
 export const SelectContext = createContext<ISelectContext>({ index: -1 })
+/**
+* ### Select 选择器
+* 下拉选择器。
+* ### 引用方法
+* 
+* ~~~js
+* import { Select } from 'vship';
+  const { Option } from Select;
+* ~~~
+*/
 export const Select: React.FC<SelectProps> = (props) => {
   const {
     size,

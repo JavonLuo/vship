@@ -2,7 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import Progress from './index'
 
-const progressComponent = () => (
+const ProgressComponent = () => (
   <div style={{padding: '0px 40px'}}>
     <Progress percent={20} theme='warning' showText={false}></Progress>
     <br/>
@@ -22,4 +22,4 @@ const progressComponent = () => (
   </div>
 )
 storiesOf('Progress', module)
-  .add('Progress', progressComponent)
+  .add('Progress', ProgressComponent)

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from 'react'
+import React, { ChangeEvent, useRef, useState, HTMLAttributes } from 'react'
 import axios from 'axios'
 import Dragger from './dragger'
 import UploadList from './uploadList'
@@ -14,21 +14,66 @@ export interface UploadFile {
   response?: any;
   error?: any;
 }
-export interface UploadProps {
+export interface UploadProps extends Omit<HTMLAttributes<HTMLElement>, 'onChange' | 'onError' | 'onProgress'> {
+  /**
+    * 上传的服务器路径
+  */
   action: string;
+  /**
+    * 默认展示的文件列表
+  */
   defaultFileList?: UploadFile[];
+  /**
+    * 上传之前的回调
+  */
   beforUpload?: (file: File) => boolean | Promise<File>;
+  /**
+    * 上传进度条的回调
+  */
   onProgress?: (percentage: number, file: UploadFile) => void;
+  /**
+    * 上传成功的回调
+  */
   onSuccess?: (data: any, file: UploadFile) => void;
+  /**
+    * 上传失败的回调
+  */
   onError?: (err: any, file: UploadFile) => void;
+  /**
+    * 上传过程中change的回调
+  */
   onChange?: (file: UploadFile) => void;
+  /**
+    * 删除上传文件的回调
+  */
   onRemove?: (file: UploadFile) => void;
+  /**
+    * 请求的头部信息
+  */
   headers?: { [key: string]: any };
+  /**
+    * 上传参数的名称
+  */
   name?: string;
+  /**
+    * 是否额外携带数据
+  */
   data?: { [key: string]: any }
+  /**
+    * 是否携带cookie
+  */
   withCredentials?: boolean;
+  /**
+    * 接受的文件类型 类似input标签type='file'
+  */
   accept?: string;
+  /**
+    * 是否支持文件夹上传
+  */
   multiple?: boolean;
+  /**
+    * 是否支持拖拽上传
+  */
   drag?: boolean;
 }
 
@@ -49,7 +94,8 @@ export const Upload: React.FC<UploadProps> = (props) => {
     accept,
     multiple,
     children,
-    drag
+    drag,
+    ...restProps
   } = props
   const fileInput = useRef<HTMLInputElement>(null)
   const [fileList, setFileList] = useState<UploadFile[]>(defaultFileList || [])
@@ -155,7 +201,7 @@ export const Upload: React.FC<UploadProps> = (props) => {
     })
   }
   return (
-    <div className='vship-upload'>
+    <div className='vship-upload' {...restProps}>
       <div
         className='vship-upload-input'
         style={{ display: 'inline-block' }}

@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import Alert from './index'
-const basicAlert = () => (
+const BasicAlert = () => (
   <div style={{padding: '0px 40px'}}>
     <Alert message='basicAlert' type='error'></Alert>
     <Alert message='basicAlert' type='info'></Alert>
@@ -9,7 +9,7 @@ const basicAlert = () => (
     <Alert message='basicAlert' type='warning' description='descriptionAlert'></Alert>
   </div>
 )
-const showIconAlert = () => (
+const ShowIconAlert = () => (
   <div  style={{padding: '0px 40px'}}>
     <Alert message='showIconAlert' type='error' showIcon></Alert>
     <Alert message='showIconAlert' type='info' showIcon></Alert>
@@ -17,7 +17,7 @@ const showIconAlert = () => (
     <Alert message='showIconAlert' type='warning' showIcon description='description'></Alert>
   </div>
 )
-const closeButton = () => (
+const CloseButton = () => (
   <div  style={{padding: '0px 40px'}}>
     <Alert message='closeButton' type='success' showIcon closable></Alert>
     <Alert message='closeButton' type='info' closable closeText='关闭'></Alert>
@@ -25,7 +25,7 @@ const closeButton = () => (
     <Alert message='closeButton' type='warning' description='description' closable closeText='关闭'></Alert>
   </div>
 )
-const bannerAlert = () => (
+const BannerAlert = () => (
   <div  style={{padding: '0px 40px'}}>
     <Alert message='bannerAlert' type='success' showIcon banner></Alert>
     <br/>
@@ -37,7 +37,7 @@ const bannerAlert = () => (
   </div>
 )
 storiesOf('Alert', module)
-  .add('basic alert', basicAlert)
-  .add('show icon alert', showIconAlert)
-  .add('close alert', closeButton)
-  .add('banner alert', bannerAlert)
+  .add('basic alert', BasicAlert)
+  .add('show icon alert', ShowIconAlert)
+  .add('close alert', CloseButton)
+  .add('banner alert', BannerAlert)

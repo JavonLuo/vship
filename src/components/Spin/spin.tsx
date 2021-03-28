@@ -4,12 +4,33 @@ import Icon from '../Icon/icon'
 
 type spinSize = 'small' | 'default' | 'large'
 export interface SpinProps {
+  /**
+    * 是否加载中
+  */
   spinning?: boolean
+  /**
+    * 尺寸
+    * 
+  */
   size?: spinSize
+  /**
+    * 显示提示信息
+  */
   tip?: string
+  /**
+    * 外层的class
+  */
   wrapperClassName?: string
 }
-
+/**
+* ### Spin 加载中
+* 用于页面和区块的加载中状态。
+* ### 引用方法
+* 
+* ~~~js
+* import { Spin } from 'vship';
+* ~~~
+*/
 export const Spin: React.FC<SpinProps> = (props) => {
   const {
     spinning,

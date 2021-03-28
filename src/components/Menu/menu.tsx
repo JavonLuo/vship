@@ -43,6 +43,7 @@ export const MenuContext = createContext<IMenuContext>({index:'0'})
  * ### 引入方式
  * ~~~js
  * import Menu from 'vship';
+ * const { MenuItem, SubMenu } = Menu;
  * ~~~
 */
 export const Menu: React.FC<MenuProps> = (props) => {

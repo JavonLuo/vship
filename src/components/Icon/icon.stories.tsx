@@ -2,7 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import Icon from './index'
 
-const iconComponent = () => (
+const IconComponent = () => (
   <div style={{ display: 'flex', justifyContent: 'space-around' }}>
     <Icon icon='info-circle' theme='danger' />
     <Icon icon='check-circle' theme='dark' />
@@ -15,4 +15,4 @@ const iconComponent = () => (
   </div>
 )
 storiesOf('Icon', module)
-  .add('Icon', iconComponent)
+  .add('Icon', IconComponent)

@@ -27,14 +27,14 @@ const handleFetch = (query) => {
       return items.slice(0, 10).map((item) => ({ value: item.login, ...item }))
     })
 }
-const asyncAutoComplete = () => (
+const AsyncAutoComplete = () => (
   <div style={{padding: '0px 40px'}}>
     <AutoComplete
       fetchSuggestions={handleFetch}
     ></AutoComplete>
   </div>
 )
-const syncAutoComplete = () => (
+const SyncAutoComplete = () => (
   <div  style={{padding: '0px 40px'}}>
     <AutoComplete
       fetchSuggestions={suggestion}
@@ -42,5 +42,5 @@ const syncAutoComplete = () => (
   </div>
 )
 storiesOf('AutoComplete', module)
-  .add('async autoComplete', asyncAutoComplete)
-  .add('sync autoComplete', syncAutoComplete)
+  .add('async autoComplete', AsyncAutoComplete)
+  .add('sync autoComplete', SyncAutoComplete)

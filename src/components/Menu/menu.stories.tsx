@@ -5,7 +5,7 @@ import MenuItem from './menuItem'
 import Menu from './index'
 import SubMenu from './subMenu'
 
-const basicMenu = () => (
+const BasicMenu = () => (
   <div style={{padding: '0px 40px'}}>
     <Menu>
       <MenuItem disabled>
@@ -25,7 +25,7 @@ const basicMenu = () => (
     </Menu>
   </div>
 )
-const subMenu = () => (
+const SubMenuComponent = () => (
   <div style={{padding: '0px 40px'}}>
     <Menu onSelect={action('clicked')} defaultOpenSubMenus={['3']}>
       <MenuItem disabled>
@@ -69,5 +69,5 @@ const subMenu = () => (
 )
 
 storiesOf('Menu', module)
-  .add('basic menu', basicMenu)
-  .add('sub menu', subMenu)
+  .add('basic menu', BasicMenu)
+  .add('sub menu', SubMenuComponent)

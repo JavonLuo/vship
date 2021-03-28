@@ -13,7 +13,7 @@ export const UploadList: React.FC<UploadListProps> = (props) => {
     fileList,
     onRemove
   } = props
-
+  console.log(fileList);
   return (
     <ul className='vship-upload-list'>
       {
@@ -27,9 +27,12 @@ export const UploadList: React.FC<UploadListProps> = (props) => {
               {(item.status === 'uploading' || item.status === 'ready') &&
                 <Icon icon='spinner' spin theme='primary' />
               }
+              &nbsp;&nbsp;&nbsp;
               {item.status === 'success' && <Icon icon='check-circle' theme='success' />}
+              &nbsp;&nbsp;&nbsp;
               {item.status === 'error' && <Icon icon='times-circle' theme='danger' />}
             </span>
+            &nbsp;&nbsp;&nbsp;
             <span className='file-actions'>
               <Icon icon='times' onClick={() => { onRemove(item) }} />
             </span>

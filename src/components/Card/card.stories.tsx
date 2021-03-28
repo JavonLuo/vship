@@ -2,7 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import Card from './index'
 
-const cardComponent = () => (
+const CardComponent = () => (
   <div style={{display: 'flex', justifyContent: 'space-around'}}>
     <Card title='default' bodyStyle={{width: 200}}>
       <p>123</p>
@@ -27,4 +27,4 @@ const cardComponent = () => (
   </div>
 )
 storiesOf('Card', module)
-  .add('Card', cardComponent)
+  .add('Card', CardComponent)

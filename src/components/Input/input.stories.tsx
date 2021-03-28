@@ -2,7 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { Input } from './input'
-const defaultInput = () => (
+const DefaultInput = () => (
   <>
   <Input
   style={{width: 340, marginLeft: 40}}
@@ -11,21 +11,21 @@ const defaultInput = () => (
   />
   </>
 )
-const disabledInput = () => (
+const DisabledInput = () => (
   <Input
   style={{width: 300, marginLeft: 40}}
   placeholder='placeholder'
   disabled
   />
 )
-const iconInput = () => (
+const IconInput = () => (
   <Input
   style={{width: 300, marginLeft: 40}}
   placeholder='icon input'
   icon='search'
   />
 )
-const sizeInput = () => (
+const SizeInput = () => (
   <>
   <Input
   style={{width: 300, marginLeft: 40}}
@@ -44,7 +44,7 @@ const sizeInput = () => (
   />
   </>
 )
-const pendInput = () => (
+const PendInput = () => (
   <>
   <Input
   style={{width: 300, marginLeft: 40}}
@@ -60,8 +60,8 @@ const pendInput = () => (
 )
 
 storiesOf('Input', module)
-  .add('default Input', defaultInput)
-  .add('disabled Input', disabledInput)
-  .add('icon Input', iconInput)
-  .add('size Input', sizeInput)
-  .add('pend Input', pendInput)
+  .add('default Input', DefaultInput)
+  .add('disabled Input', DisabledInput)
+  .add('icon Input', IconInput)
+  .add('size Input', SizeInput)
+  .add('pend Input', PendInput)
